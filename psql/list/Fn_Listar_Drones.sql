@@ -1,4 +1,4 @@
--- Procedimiento para listar todos los drones disponibles en la base de datos
+-- Función para listar todos los drones disponibles en la base de datos
 CREATE OR REPLACE FUNCTION fn_listar_drones()
 RETURNS SETOF drones AS $$ 
 	BEGIN	
