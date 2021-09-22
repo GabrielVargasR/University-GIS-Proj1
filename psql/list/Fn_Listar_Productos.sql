@@ -1,4 +1,4 @@
--- Procedimiento para listar todos los productos disponibles con métrica en L/Ha
+-- Función para listar todos los productos disponibles con métrica en L/Ha
 CREATE OR REPLACE FUNCTION fn_listar_productos()
 RETURNS SETOF productos AS $$ 
 	BEGIN	

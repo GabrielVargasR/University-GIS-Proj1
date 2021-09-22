@@ -1,4 +1,4 @@
--- Procedimiento para listar todas las configuraciones disponibles para un drone
+-- Función para listar todas las configuraciones disponibles para un drone
 -- Recibe el id del drone como parámetro
 CREATE OR REPLACE FUNCTION fn_listar_configuraciones(id_drone INTEGER)
 RETURNS SETOF configuraciones AS $$ 
