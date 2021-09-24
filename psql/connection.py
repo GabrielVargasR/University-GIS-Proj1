@@ -38,14 +38,24 @@ class Window(QMainWindow):
     # mandaria a calcular dosis a base de datos
     def calcular_dosis(self):
         query = QSqlQuery(self.db.con)
+        #ids_productos
+        prods = 'ARRAY['
+        for i in self.productos:
+            prods += str(i) + ','
+        prods = prods[:-1]
+        prods += ']'
+        
         # el ? en el query indica que ahi va un parametro
-        query.prepare("select * from fn_calcular_dosis(?, ?, ?, ?);")
+        query.prepare(f"select * from fn_calcular_dosis(?, ?, {prods}, ?);")
         query.bindValue(0, self.drone) # id_drone
         query.bindValue(1, self.config) # id_config
-        query.bindValue(2, self.productos) # ids_productos
-        query.bindValue(3, self.area) # area calculada
+        #query.bindValue(2, prods) # ids_productos
+        query.bindValue(2, self.area) # area calculada
         query.exec_()
-        print(query.value(0))
+        print(query.lastError().text())
+        while (query.next()):
+            print(query.value(0), query.value(1), query.value(2), query.value(3), query.value(9))
+        
         
 
     # para manejar seleccion en combo box de drone
@@ -60,7 +70,7 @@ class Window(QMainWindow):
         
         query_config = QSqlQuery(self.db.con)
         # el ? en el query indica que ahi va un parametro
-        query_config.prepare('select * from fn_listar_configuraciones(?)')
+        query_config.prepare('select * from fn_listar_configuraciones(?);')
         query_config.bindValue(0,self.drone) #bindValue(param_index, param_value)
         query_config.exec_()
         
